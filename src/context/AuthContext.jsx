@@ -7,6 +7,7 @@ import API from "../services/api";
 const AuthContext = createContext(null);
 
 const normalizeUser = (payload) => {
+    // Backend returns: { message, id, name, email, role }
     const rawUser = payload?.user ?? payload ?? {};
     const normalizedRole = String(rawUser.role || "visitor").toLowerCase();
     const role = normalizedRole === "user" ? "visitor" : normalizedRole;
@@ -17,8 +18,9 @@ const normalizeUser = (payload) => {
         (rawUser.email ? String(rawUser.email).split("@")[0] : "User");
 
     return {
-        ...rawUser,
+        id: rawUser.id,
         name,
+        email: rawUser.email,
         role,
     };
 };
@@ -51,22 +53,22 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    // Login using backend API
+    // Login using backend API — POST /api/auth/login
     const login = async (email, password) => {
         try {
-            const res = await API.post("/users/login", { email, password });
-            if (!res?.data) {
-                return { success: false, message: "Invalid email or password." };
+            const res = await API.post("/auth/login", { email, password });
+            const data = res?.data;
+
+            if (!data || data.id == null) {
+                return { success: false, message: data?.message || "Invalid email or password." };
             }
 
-            const normalizedUser = normalizeUser(res.data);
+            const normalizedUser = normalizeUser(data);
             setUser(normalizedUser);
             localStorage.setItem("gallery_user", JSON.stringify(normalizedUser));
 
-            const token = res.data?.token || res.data?.jwt || res.data?.accessToken;
-            if (token) {
-                localStorage.setItem("gallery_token", token);
-            }
+            // Backend doesn't issue JWT yet — clear any stale token
+            localStorage.removeItem("gallery_token");
 
             return { success: true, role: normalizedUser.role, user: normalizedUser };
         } catch (err) {

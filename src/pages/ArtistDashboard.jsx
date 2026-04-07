@@ -298,14 +298,14 @@ const ArtistDashboard = () => {
 
     const loadMyArtworks = async () => {
         try {
-            const res = await API.get("/artworks");
+            // Backend filters artworks by userId — each artist only sees their own
+            const params = user?.id ? `?artistId=${user.id}` : "";
+            const res = await API.get(`/artworks${params}`);
             const all = extractApiList(res.data).map(normalizeArtwork);
-            // Only show artworks that explicitly belong to this artist
-            const mine = all.filter((a) => belongsToCurrentArtist(a, user));
-            setArtworks(mine);
+            setArtworks(all); // empty array is valid — artist has no artworks yet
         } catch (err) {
-            console.error(err);
-            // Fallback: only show mock artworks belonging to this artist
+            console.error("Failed to load artworks:", err);
+            // Network error only — show matching mock data as fallback
             const fallback = ARTWORKS.filter((a) => belongsToCurrentArtist(a, user));
             setArtworks(fallback);
         }
@@ -364,6 +364,8 @@ const ArtistDashboard = () => {
         formData.append("price", String(Number(form.price)));
         formData.append("rating", String(current?.rating ?? 0));
         formData.append("year", String(current?.year ?? new Date().getFullYear()));
+        // Always send userId so the backend permanently links this artwork to the artist
+        if (user?.id) formData.append("userId", String(user.id));
 
         if (form.medium?.trim()) formData.append("medium", form.medium.trim());
         if (form.dimensions?.trim()) formData.append("dimensions", form.dimensions.trim());

@@ -29,6 +29,7 @@ import Purchases from "./pages/Purchases";
 import Exhibitions from "./pages/Exhibitions";
 import AddArtwork from "./pages/AddArtwork";
 import EditArtwork from "./pages/EditArtwork"; // ✅ added
+import VerifyEmail from "./pages/VerifyEmail";  // ✅ email verification
 
 // Scroll to top
 const ScrollToTop = () => {
@@ -58,6 +59,7 @@ const AppInner = () => {
           <Route path="/virtual-tour" element={<VirtualTour />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
 
           {/* PROTECTED — GENERAL */}
           <Route path="/wishlist" element={

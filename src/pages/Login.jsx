@@ -36,6 +36,7 @@ const Login = () => {
     const [showPw,   setShowPw]   = useState(false);
     const [error,    setError]    = useState("");
     const [loading,  setLoading]  = useState(false);
+    const [notVerified, setNotVerified] = useState(false);
 
     /* CAPTCHA */
     const [captcha,      setCaptcha]      = useState(() => generateCaptcha());
@@ -63,6 +64,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
+        setNotVerified(false);
 
         if (!captchaOk) {
             setError("Please solve the CAPTCHA correctly before signing in.");
@@ -76,6 +78,9 @@ const Login = () => {
 
         if (result.success) {
             navigate(ROLE_MAP[result.role] || "/");
+        } else if (result.message === "EMAIL_NOT_VERIFIED") {
+            setNotVerified(true);
+            refreshCaptcha();
         } else {
             setError(result.message || "Invalid credentials");
             refreshCaptcha();
@@ -112,6 +117,21 @@ const Login = () => {
 
                     <form onSubmit={handleSubmit} className="auth-form">
                         {error && <div className="alert alert-error">{error}</div>}
+
+                        {/* Email not verified warning */}
+                        {notVerified && (
+                            <div className="alert" style={{
+                                background: "rgba(245,158,11,0.15)",
+                                border: "1px solid rgba(245,158,11,0.5)",
+                                color: "#f59e0b",
+                                borderRadius: "0.75rem",
+                                padding: "0.85rem 1rem",
+                                fontSize: "0.9rem",
+                                lineHeight: 1.5
+                            }}>
+                                📧 <strong>Email not verified.</strong> Please check your inbox and click the verification link we sent you. Check your spam folder too!
+                            </div>
+                        )}
 
                         {/* Email */}
                         <div className="form-group">

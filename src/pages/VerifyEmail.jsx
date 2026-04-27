@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { CheckCircle, XCircle, Loader, Palette } from "lucide-react";
-import axios from "axios";
+import API from "../services/api";
 
 const VerifyEmail = () => {
     const [searchParams] = useSearchParams();
@@ -21,11 +21,8 @@ const VerifyEmail = () => {
 
         console.log("[VerifyEmail] token:", token);
 
-        // Always call backend directly on port 8080 — works whether on :5173 or any other port
-        const backendUrl = `http://localhost:8080/api/auth/verify-email?token=${encodeURIComponent(token)}`;
-        console.log("[VerifyEmail] calling:", backendUrl);
-
-        axios.get(backendUrl)
+        // Use the shared API service — reads VITE_API_URL (Railway URL in production)
+        API.get(`/auth/verify-email?token=${encodeURIComponent(token)}`)
             .then((res) => {
                 console.log("[VerifyEmail] success:", res.data);
                 const msg = res.data || "";
@@ -41,7 +38,6 @@ const VerifyEmail = () => {
                 const errData    = err?.response?.data;
                 console.error("[VerifyEmail] error:", httpStatus, errData, err.message);
                 setStatus("error");
-                setDebugInfo(`HTTP ${httpStatus || "No response"}: ${JSON.stringify(errData) || err.message}`);
                 setMessage(
                     (typeof errData === "string" ? errData : errData?.message) ||
                     "Invalid or expired verification link."

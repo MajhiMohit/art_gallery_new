@@ -1942,28 +1942,46 @@
 /* ─── Exhibitions Page ────────────────────────────────────── */
 .exhibition-detail-card {
   display: grid;
-  grid-template-columns: 350px 1fr;
+  grid-template-columns: 380px 1fr;
   gap: 0;
   overflow: hidden;
   border-radius: var(--radius-lg);
+  transition: transform var(--transition), box-shadow var(--transition);
 }
 
-@media (max-width: 900px) {
+.exhibition-detail-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-gold);
+}
+
+@media (max-width: 960px) {
   .exhibition-detail-card {
     grid-template-columns: 1fr;
+  }
+
+  .exhibition-detail-image {
+    min-height: 260px;
   }
 }
 
 .exhibition-detail-image {
   position: relative;
   overflow: hidden;
+  min-height: 300px;
+  background: var(--bg-secondary);
 }
 
 .exhibition-detail-image img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  min-height: 250px;
+  transition: transform 0.6s ease;
+}
+
+.exhibition-detail-card:hover .exhibition-detail-image img {
+  transform: scale(1.05);
 }
 
 .exhibition-featured-badge {

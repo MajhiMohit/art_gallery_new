@@ -96,7 +96,7 @@ export const ARTWORKS = [
         year: 2020,
         dimensions: "150 × 110 cm",
         medium: "Oil on Canvas",
-        image: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800&q=80",
+        image: "https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800&q=80&auto=format&fit=crop",
         description:
             "A majestic portrait of a fictional empress draped in silk and jade, rendered with classical Qing dynasty aesthetics merged with European oil-painting techniques.",
         culturalSignificance:
@@ -168,7 +168,7 @@ export const ARTWORKS = [
         year: 2021,
         dimensions: "45 × 30 × 30 cm",
         medium: "Bronze & Resin",
-        image: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&q=80",
+        image: "https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&q=80&auto=format&fit=crop",
         description:
             "A haunting abstract sculpture suggestive of a veiled figure in the act of prophecy — frozen mid-utterance, evoking ancient soothsayers and mystical rites.",
         culturalSignificance:
@@ -192,7 +192,7 @@ export const ARTWORKS = [
         year: 2020,
         dimensions: "85 × 65 cm",
         medium: "Collage & Acrylic",
-        image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&q=80",
+        image: "https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&q=80&auto=format&fit=crop",
         description:
             "Torn pages, photographs, and paint fragments assembled into a dreamlike landscape of recollection and loss.",
         culturalSignificance:
@@ -219,7 +219,7 @@ export const EXHIBITIONS = [
         endDate: "2026-03-30",
         description:
             "A curated journey through artworks that transcend time and geography, weaving narratives from ancient mythology to contemporary interpretations of cultural memory.",
-        coverImage: "https://images.unsplash.com/photo-1578926288207-a90a5366a1e4?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1545987796-200677ee1011?w=800&q=80&auto=format&fit=crop",
         featured: true,
     },
     {
@@ -233,7 +233,7 @@ export const EXHIBITIONS = [
         endDate: "2026-04-15",
         description:
             "Exploring city life through the eyes of contemporary artists — from fragmented digital collages to neon-lit mixed media works.",
-        coverImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=800&q=80&auto=format&fit=crop",
         featured: false,
     },
     {
@@ -247,7 +247,7 @@ export const EXHIBITIONS = [
         endDate: "2026-05-20",
         description:
             "A contemplative exhibition celebrating the beauty and fragility of the natural world through landscape painting and fine art photography.",
-        coverImage: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80",
+        coverImage: "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80&auto=format&fit=crop",
         featured: true,
     },
 ];

@@ -67,8 +67,10 @@ export const AuthProvider = ({ children }) => {
             setUser(normalizedUser);
             localStorage.setItem("gallery_user", JSON.stringify(normalizedUser));
 
-            // Backend doesn't issue JWT yet — clear any stale token
-            localStorage.removeItem("gallery_token");
+            // Save JWT token for authenticated API requests
+            if (data.token) {
+                localStorage.setItem("gallery_token", data.token);
+            }
 
             return { success: true, role: normalizedUser.role, user: normalizedUser };
         } catch (err) {
